@@ -109,7 +109,7 @@ header nav ul li a {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 90vh;
   width: 100%;
   overflow: hidden;
   z-index: -1;
@@ -125,7 +125,7 @@ header nav ul li a {
   object-fit: cover;
 }
 
-/* Ensure hero section takes full screen */
+/* hero section takes full screen */
 .hero {
   position: relative;
   width: 100%;
