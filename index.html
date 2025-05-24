@@ -240,6 +240,8 @@
         </div>
         <div class="footer-bottom">
             &copy; 2025 ENREACH SOLUTION CYBER FORENSIC SOLUTIONS. All Rights Reserved.
+            <br>
+           <div > Made with <span class="footer-heart" >❤️</span> by <a href="https://github.com/vishantrathi" >Vishant</a></div>
         </div>
         <!-- Floating Action Buttons -->
         <div class="footer-fab-group">
@@ -252,42 +254,6 @@
             <a href="mailto:contact@enreachsolution.com" class="footer-fab email" title="Email"><span>✉️</span></a>
         </div>
     </footer>
-
-    <script>
-    // Three.js 3D Animation (Rotating Digital Lock)
-    const canvas = document.getElementById('three-canvas');
-    if(canvas) {
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-        renderer.setSize(220, 220);
-        camera.position.z = 3;
-
-        // 3D Lock (Cylinder + Torus)
-        const geometry = new THREE.CylinderGeometry(0.6, 0.6, 1.2, 32);
-        const material = new THREE.MeshStandardMaterial({ color: 0x1565c0, metalness: 0.7, roughness: 0.2 });
-        const lock = new THREE.Mesh(geometry, material);
-        scene.add(lock);
-        // U-shaped shackle
-        const torusGeo = new THREE.TorusGeometry(0.45, 0.09, 16, 100, Math.PI);
-        const torusMat = new THREE.MeshStandardMaterial({ color: 0xffd600, metalness: 0.8, roughness: 0.3 });
-        const shackle = new THREE.Mesh(torusGeo, torusMat);
-        shackle.position.y = 0.7;
-        scene.add(shackle);
-        // Light
-        const light = new THREE.PointLight(0xffffff, 1, 100);
-        light.position.set(2, 2, 3);
-        scene.add(light);
-        // Animation
-        function animate() {
-            requestAnimationFrame(animate);
-            lock.rotation.y += 0.01;
-            shackle.rotation.z += 0.005;
-            renderer.render(scene, camera);
-        }
-        animate();
-    }
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
