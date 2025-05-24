@@ -149,18 +149,28 @@ header nav ul li a {
     padding: 60px 0 40px 0;
     text-align: center;
 }
-.about .about-card {
-    max-width: 700px;
-    margin: 0 auto;
-    background: #fff;
-    border-radius: 22px;
-    box-shadow: 0 6px 32px rgba(21,101,192,0.10);
-    padding: 36px 28px 28px 28px;
-    position: relative;
-    z-index: 1;
-    margin-left: 0;
-    margin-right: auto;
-    text-align: left;
+.about-flex {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    flex-wrap: nowrap;
+}
+.about-card {
+    flex: 2 1 350px;
+}
+.about-photo {
+    flex: 1 1   290px;
+    margin-top: 130px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+.about-photo img {
+    max-width: 420px;
+    width: 100%;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(21,101,192,0.10);
+    object-fit: cover;
 }
 .about h2 {
     font-size: 2.5rem;
@@ -310,9 +320,13 @@ footer {
     .hero-3d {
         margin-top: 30px;
     }
-    .about .about-card {
-        margin: 0 auto;
-        text-align: center;
+    .about-flex {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+    .about-photo {
+        margin-top: 24px;
     }
 }
 
@@ -759,4 +773,16 @@ nav {
     .team-card {
         padding: 18px 8px 14px 8px;
     }
+}
+
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    display: block;
+    background: transparent;
 }
