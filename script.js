@@ -14,4 +14,5 @@ if (hamburger && navMenu) {
             navMenu.classList.remove('open');
         });
     });
+    
 } 
