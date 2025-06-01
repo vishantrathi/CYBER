@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; }
+    h1 { color: #333; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Welcome to the Admin Dashboard!</h1>
+  <button id="logoutBtn">Logout</button>
+
+  <script>
+    // Check if logged in, otherwise redirect to login page
+    if (!localStorage.getItem('isLoggedIn')) {
+      window.location.href = 'login.html';
+    }
+
+    // Logout button clears session and redirects
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>
