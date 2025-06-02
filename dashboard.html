@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard</title>
+  <title>Admin Dashboard</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 2rem; }
     h1 { color: #333; }
@@ -36,49 +36,66 @@
     <p id="submissionMessage" style="color: green;"></p>
   </div>
 
-  <script>
-    // Check if logged in, otherwise redirect to login page
-    if (!localStorage.getItem('isLoggedIn')) {
+  <!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    appId: "YOUR_APP_ID"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const storage = firebase.storage();
+
+  auth.onAuthStateChanged((user) => {
+    if (!user) {
       window.location.href = 'login.html';
     }
+  });
 
-    // Logout button clears session and redirects
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      localStorage.removeItem('isLoggedIn');
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    auth.signOut().then(() => {
       window.location.href = 'login.html';
     });
+  });
 
-    // Handle article submission
-    document.getElementById('articleForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+  document.getElementById('articleForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
 
-      const title = document.getElementById('title').value.trim();
-      const image = document.getElementById('image').files[0];
-      const content = document.getElementById('content').value.trim();
+    const title = document.getElementById('title').value.trim();
+    const image = document.getElementById('image').files[0];
+    const content = document.getElementById('content').value.trim();
 
-      // Create a FormData object to send the data
-      const formData = new FormData();
-      formData.append('title', title);
-      formData.append('image', image);
-      formData.append('content', content);
+    try {
+      // Step 1: Upload image to Firebase Storage
+      const imageRef = storage.ref().child(`articleImages/${Date.now()}_${image.name}`);
+      await imageRef.put(image);
+      const imageUrl = await imageRef.getDownloadURL();
 
-      // Send the data to the backend (replace 'your-backend-url' with your actual backend URL)
-      fetch('your-backend-url', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('submissionMessage').textContent = 'Article submitted successfully!';
-        // Optionally, reset the form
-        document.getElementById('articleForm').reset();
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('submissionMessage').textContent = 'Error submitting article.';
+      // Step 2: Save article data to Firestore
+      await db.collection('articles').add({
+        title,
+        content,
+        imageUrl,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
-    });
-  </script>
+
+      document.getElementById('submissionMessage').textContent = 'Article submitted successfully!';
+      document.getElementById('articleForm').reset();
+    } catch (error) {
+      console.error('Error:', error);
+      document.getElementById('submissionMessage').textContent = 'Error submitting article.';
+    }
+  });
+</script>
 </body>
 </html>
-
