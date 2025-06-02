@@ -303,22 +303,41 @@ header nav ul li a {
 .why-choose-us {
     background-color: #e6e6e6;
     padding: 40px 0;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    box-sizing: border-box;
+}
+
+.why-choose-us-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    padding: 24px;
+    box-sizing: border-box;
+    background: transparent;
 }
 
 .why-choose-us h2 {
     font-size: 2.5rem;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .why-choose-us ul {
+    width: 100%;
     max-width: 500px;
     margin: 0 auto;
     text-align: left;
+    padding-left: 24px;
 }
 
 .why-choose-us ul li {
     margin-bottom: 10px;
+    text-align: left;
 }
 
 /* Contact Section */
@@ -684,9 +703,9 @@ nav {
     text-decoration: none;
     transition: background 0.2s, transform 0.2s;
 }
-.footer-fab.call { background: #00bfae; }
+.footer-fab.call { background: #ffffff; }
 .footer-fab.whatsapp { background: #25d366; }
-.footer-fab.email { background: #a259e6; }
+.footer-fab.email { background: #fffefe; }
 .footer-fab:hover { transform: scale(1.08); filter: brightness(1.1); }
 
 @media (max-width: 900px) {
@@ -832,3 +851,29 @@ nav {
     display: block;
     background: transparent;
 }
+/* Initially hide services beyond the 4th one */
+.service-card:nth-child(n+5) {
+    display: none;
+}
+
+/* When 'show-more' class is added, show all */
+.services-grid.show-more .service-card {
+    display: block;
+}
+
+.view-more {
+    display: inline-block;
+    background: #555555;
+    color: #fff;
+    padding: 7px 18px;
+    border-radius: 20px;
+    font-size: 0.98rem;
+    text-decoration: none;
+    transition: background 0.2s;
+    cursor: pointer;
+    ;
+}
+.view-more:hover {
+    background: #6b6666;
+}
+
